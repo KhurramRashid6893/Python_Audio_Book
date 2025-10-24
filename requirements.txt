@@ -1,0 +1,5 @@
+Flask
+pyttsx3
+PyPDF2
+PyMuPDF
+gunicorn

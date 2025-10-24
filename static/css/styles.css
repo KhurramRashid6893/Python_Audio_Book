@@ -1,0 +1,517 @@
+/* --- Root Variables for Theming --- */
+:root {
+    --bg-color: #ffffff;
+    --card-bg-color: rgba(255, 255, 255, 0.95);
+    --text-color: #333;
+    --text-color-light: #555;
+    --footer-text-color: #000000;
+
+    /* Your Purple Theme Colors */
+    --theme-primary: #A855F7;
+    --theme-primary-dark: #6D28D9;
+    --theme-primary-light: #8B5CF6;
+    --theme-secondary: #EC4899;
+    --theme-secondary-light: #F472B6;
+    --theme-grad-1: #A855F7;
+    --theme-grad-2: #EC4899;
+    --glow-color: rgba(74, 0, 224, 0.4);
+    --hover-bg: #F5ECF8;
+    --border-color: #C4B5E9;
+    --progress-bg: #E6E0F8;
+}
+
+body.dark {
+    --bg-color: #121212;
+    --card-bg-color: rgba(29, 29, 29, 0.95);
+    --text-color: #f5f5f5;
+    --text-color-light: #aaa;
+    --footer-text-color: #f5f5f5;
+
+    /* Dark Mode Theme Colors */
+    --theme-primary: #C084FC;
+    --theme-primary-dark: #A855F7;
+    --theme-primary-light: #D8B4FE;
+    --theme-secondary: #F472B6;
+    --theme-secondary-light: #F9A8D4;
+    --glow-color: rgba(192, 132, 252, 0.5);
+    --hover-bg: #2d2036;
+    --border-color: #4a4a4a;
+    --progress-bg: #3b3b3b;
+}
+
+/* --- Base Styles --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-image: url('../background.jpg');
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: var(--text-color);
+    min-height: 100vh;
+    /* MODIFICATION: 
+      Removed fixed padding-top and padding-bottom.
+      This will be handled dynamically by script.js for better responsiveness.
+    */
+    padding-left: 20px;
+    padding-right: 20px;
+    position: relative;
+    background-color: var(--bg-color);
+    transition: background-color 0.3s, color 0.3s;
+    gap: 20px;
+}
+
+/* --- Theme Toggle Button --- */
+.toggle-theme {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--card-bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 1001;
+    transition: all 0.3s ease;
+}
+.toggle-theme:hover {
+    background-color: var(--hover-bg);
+}
+
+
+/* --- Card Base Style --- */
+.card {
+    background: var(--card-bg-color);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    width: 100%;
+    padding: 15px;
+    z-index: 1;
+    overflow: hidden;
+    transition: background-color 0.3s, border-color 0.3s;
+    border-color: var(--border-color);
+}
+
+/* --- Header --- */
+header {
+    background: linear-gradient(135deg, var(--theme-grad-1) 0%, var(--theme-grad-2) 100%);
+    color: white;
+    padding: 12px 15px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+header h1 {
+    font-size: 2rem;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+header h1 i {
+    font-size: 1.8rem;
+}
+
+header p {
+    font-size: 1rem;
+    opacity: 0.9;
+    font-style: italic;
+}
+
+/* --- Upload Area --- */
+.upload-area {
+    border: 2px dashed var(--theme-primary);
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background-color: var(--bg-color);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 15px;
+}
+body.dark .upload-area {
+    background-color: var(--card-bg-color);
+}
+
+.upload-area:hover {
+    background-color: transparent;
+    transform: translateY(-3px);
+    box-shadow: 0 0 25px 5px var(--glow-color);
+    border-color: var(--theme-primary);
+}
+
+.upload-area.dragover {
+    background-color: rgba(168, 85, 247, 0.1);
+    border-color: var(--theme-secondary);
+}
+
+.upload-area i {
+    font-size: 55px;
+    color: var(--theme-primary);
+    margin-bottom: 15px;
+}
+
+.upload-area h3 {
+    color: var(--theme-primary-dark);
+    margin-bottom: 10px;
+    font-size: 1.4rem;
+}
+
+.upload-area p {
+    color: var(--theme-primary-light);
+    margin-bottom: 20px;
+}
+
+.file-input {
+    display: none;
+}
+
+.file-name-display {
+    color: var(--text-color-light);
+    margin-top: 15px;
+    font-weight: 500;
+}
+
+/* --- Options Card --- */
+.options-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.option-group {
+    flex: 1;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+}
+.option-group label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--theme-primary-dark);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.option-group select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--theme-primary);
+    background-color: var(--hover-bg);
+    color: var(--theme-primary-dark);
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.option-group select option {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+.options-card .option-group:first-child {
+    z-index: 2;
+}
+
+.options-card .option-group:nth-child(2) {
+    z-index: 1;
+}
+
+/* --- Buttons --- */
+.btn {
+    background: linear-gradient(to bottom, var(--theme-secondary), var(--theme-primary));
+    color: white;
+    border: none;
+    padding: 13px 35px;
+    font-size: 1.05rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    border: 1px solid var(--theme-primary-light);
+    text-decoration: none;
+}
+
+.btn:hover {
+    background: linear-gradient(to bottom, var(--theme-secondary-light), var(--theme-primary));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.btn.btn-secondary {
+    background: var(--card-bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+.btn.btn-secondary:hover {
+    background: var(--hover-bg);
+}
+
+.convert-btn-wrapper {
+    text-align: center;
+    padding: 10px;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.convert-btn-wrapper button {
+    width: 100%;
+    max-width: 400px;
+}
+
+/* --- Status & Progress --- */
+.status {
+    text-align: center;
+}
+.progress-bar {
+    height: 10px;
+    background-color: var(--progress-bg);
+    border-radius: 5px;
+    margin: 15px 0;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+.progress {
+    height: 100%;
+    background: linear-gradient(to right, var(--theme-grad-1), var(--theme-grad-2));
+    width: 0%;
+    transition: width 0.5s ease;
+}
+.status-text {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: var(--theme-primary-dark);
+    font-weight: 600;
+}
+#statusMessage {
+    color: var(--text-color-light);
+}
+
+/* --- Error Box --- */
+.error-box {
+    border: 2px solid #e63946;
+    background-color: #ffffff;
+    color: #e63946;
+    font-weight: 600;
+}
+body.dark .error-box {
+    background-color: var(--card-bg-color);
+}
+
+/* --- Features Section --- */
+.features {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    height: 100%;
+    justify-content: space-around;
+}
+.feature {
+    flex: 1;
+    min-width: 160px;
+    text-align: center;
+    padding: 15px;
+    transition: all 0.3s ease;
+    background-color: var(--card-bg-color);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    border: 1px solid var(--border-color);
+}
+.feature:hover {
+    transform: translateY(-3px);
+    background-color: var(--hover-bg);
+    box-shadow: 0 0 25px 5px var(--glow-color);
+}
+.feature i {
+    font-size: 2.2rem;
+    color: var(--theme-primary);
+    margin-bottom: 12px;
+}
+.feature h3 {
+    color: var(--theme-primary-dark);
+    margin-bottom: 8px;
+    font-size: 1rem;
+}
+.feature p {
+    color: var(--theme-primary-light);
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+/* --- Result Page --- */
+.result-card {
+    border-radius: 15px;
+    overflow: hidden;
+    background: var(--card-bg-color);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    border: 1px solid var(--border-color);
+    padding: 0 15px 15px 15px;
+}
+
+.result-card audio {
+    width: 100%;
+    margin: 50px 0 15px 0;
+}
+
+.result-card .button-group {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.result-header {
+    background: linear-gradient(135deg, var(--theme-grad-1) 0%, var(--theme-grad-2) 100%);
+    color: white;
+    padding: 0.5px 0;
+    text-align: center;
+    border-radius: 15px 15px 0 0;
+}
+
+.result-header h1 {
+    font-size: 2rem;
+    margin-bottom: 8px;
+    gap: 10px;
+}
+.result-header p {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+.result-card h2 {
+    color: var(--theme-primary-dark);
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.2rem;
+}
+
+/* --- Footer --- */
+footer {
+    width: 100%;
+    background-color: var(--card-bg-color);
+    padding: 10px 0;
+    text-align: center;
+    color: var(--footer-text-color);
+    font-size: 1.1rem;
+    box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, color 0.3s;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+/* --- New Grid Layout --- */
+.main-grid {
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 1.5fr;
+    gap: 20px;
+    width: 100%;
+    align-items: stretch;
+}
+
+/* NEW: Wrapper for column 2 */
+.options-and-convert {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* --- Media Queries --- */
+@media (max-width: 800px) {
+    .main-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .upload-area {
+        height: auto;
+    }
+    .features {
+        height: auto;
+    }
+    .convert-btn-wrapper {
+        flex-grow: 0;
+    }
+}
+
+@media (max-width: 650px) {
+    body {
+        /* MODIFICATION: 
+          Removed fixed padding-top and padding-bottom here as well.
+        */
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    header h1 {
+        font-size: 1.9rem;
+    }
+
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .feature {
+        min-width: 100%;
+    }
+
+    .result-card .button-group {
+        flex-direction: column;
+    }
+}
+
+/* --- Center Result Card on Result Page --- */
+body.result-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* centers vertically */
+    align-items: center; /* centers horizontally */
+    min-height: 100vh;
+    /* MODIFICATION: 
+      Removed fixed padding-top and padding-bottom.
+      The global JS script will handle this.
+    */
+}
+
+body.result-page .result-card {
+    max-width: 600px;
+    width: 90%;
+}
